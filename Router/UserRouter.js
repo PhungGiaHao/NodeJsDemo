@@ -4,14 +4,16 @@ const brypt = require("bcrypt");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 router.post("/register", async (req, res) => {
-  let checkUser = await Users.find({ email: req.body.email });
+  let checkUser = await Users.findOne({ email: req.body.email });
   let hashPassword = await brypt.hash(req.body.password, 10);
-  if (!checkUser)
+  console.log(checkUser, "user");
+  if (checkUser) {
+    console.log("123");
     return res.status(401).send({
       success: false,
       message: "Tên đăng nhập đã tồn tại",
     });
-
+  }
   let user = new Users({
     name: req.body.name,
     email: req.body.email,
