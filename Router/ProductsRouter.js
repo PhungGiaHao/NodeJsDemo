@@ -63,7 +63,6 @@ router.delete('/:id',async (req, res)=>{
             success:false,
         })
     }
-  
     else {
     let productdetail = await Product.findByIdAndDelete(req.params.id)
     if(!productdetail)
